@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Which Spirit Character Are You?</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f4f4;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .quiz-container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        button {
+            padding: 10px 20px;
+            margin-top: 20px;
+            font-size: 16px;
+            background-color: #6a1b9a;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #4a148c;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="quiz-container">
+        <h1>Which Spirit Character Are You?</h1>
+        <form id="quizForm">
+            <p>1. What best describes you?</p>
+            <label><input type="radio" name="q1" value="spirit"> Brave and Independent</label><br>
+            <label><input type="radio" name="q1" value="rain"> Kind and Nurturing</label><br>
+            <label><input type="radio" name="q1" value="littlecreek"> Wise and Resourceful</label><br>
+
+            <p>2. What's your ideal environment?</p>
+            <label><input type="radio" name="q2" value="spirit"> Open plains and mountains</label><br>
+            <label><input type="radio" name="q2" value="rain"> Peaceful meadows</label><br>
+            <label><input type="radio" name="q2" value="littlecreek"> Forests and rivers</label><br>
+
+            <p>3. What is most important to you?</p>
+            <label><input type="radio" name="q3" value="spirit"> Freedom</label><br>
+            <label><input type="radio" name="q3" value="rain"> Loyalty</label><br>
+            <label><input type="radio" name="q3" value="littlecreek"> Wisdom</label><br>
+
+            <button type="submit">Find Out!</button>
+        </form>
+        <div id="result" style="margin-top:20px;font-size:1.2em;"></div>
+    </div>
+
+    <script>
+        document.getElementById('quizForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const q1 = document.querySelector('input[name="q1"]:checked');
+            const q2 = document.querySelector('input[name="q2"]:checked');
+            const q3 = document.querySelector('input[name="q3"]:checked');
+
+            if (!q1 || !q2 || !q3) {
+                document.getElementById('result').innerText = "Please answer all questions!";
+                return;
+            }
+
+            const counts = {
+                spirit: 0,
+                rain: 0,
+                littlecreek: 0
+            };
+            counts[q1.value]++;
+            counts[q2.value]++;
+            counts[q3.value]++;
+
+            const result = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);
+
+            let message = "";
+            if (result === "spirit") {
+                message = "You are Spirit! Fierce, brave, and never willing to back down.";
+            } else if (result === "rain") {
+                message = "You are Rain! Gentle, loyal, and caring to those you love.";
+            } else {
+                message = "You are Little Creek! Smart, patient, and deeply connected to nature.";
+            }
+
+            document.getElementById('result').innerText = message;
+        });
+    </script>
+</body>
+
+</html>
